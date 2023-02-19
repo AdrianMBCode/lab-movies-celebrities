@@ -5,9 +5,7 @@
     {{#each movie}}
       <li>
         <h3>Title: {{title}}</h3>
-        <p><strong>Genre:</strong> {{genre}}</p>
-        <p><strong>Plot:</strong> {{plot}}</p>
-        <p><strong>Cast:</strong> 
+        <a class="btn btn-info" href="/movies/{{_id}}">Movie details</a>
           {{#each cast}}
             {{this.name}}
           {{/each}}
