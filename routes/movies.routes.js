@@ -4,24 +4,32 @@ const Movie = require("../models/Movie.model");
 const Celebrity = require("../models/Celebrity.model");
 
 // all your routes here
-router.get('/create', (req, res, next) => {
-    Celebrity.find()
-      .then((Celebrity) => {
-        res.render('movies/new-movie', { Celebrity });
+router.get("/", (req, res, next) => {
+  Movie.find()
+  .populate("cast")
+      .then(movie => {
+          res.render("movies/movies", { movie })
       })
-      .catch((err) =>  next(err));
+      .catch(err => next(err))
 
-  });
+})
+
+router.get("/create", (req, res, next) => {
+  Celebrity.find()
+      .then(celebrities => {
+          res.render("movies/new-movie", { celebrities })
+      })
+      .catch(err => { next(err) })
+})
+
+router.post("/create", (req, res, next) => {
+  let { title, genre, plot, cast } = req.body
+  Movie.create({ title, genre, plot, cast })
+      .then(result => {
+          res.redirect("/movies")
+      })
+      .catch(err => { next(err) })
+})
   
-router.post('/create', (req, res, next) =>{
-    let {title, genre, plot, cast} = req.body;
-    Movie.create({title, genre, plot, cast})
-    .populate("cast")
-    .then(() => {
-        res.redirect('/movies');
-    })
-    .catch((err) => next(err));
-
-});
 
 module.exports = router;
