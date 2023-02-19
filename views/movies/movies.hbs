@@ -1,12 +1,23 @@
-{{#each movies}}
-  <div>
-    <h3>{{title}}</h3>
-    <p>{{genre}}</p>
-    <p>{{plot}}</p>
-    <ul>
-      {{#each cast}}
-        <li>{{this.name}}</li>
-      {{/each}}
-    </ul>
-  </div>
-{{/each}}
+<h2>Movies</h2>
+
+{{#if movie.length}}
+  <ul>
+    {{#each movie}}
+      <li>
+        <h3>Title: {{title}}</h3>
+        <p><strong>Genre:</strong> {{genre}}</p>
+        <p><strong>Plot:</strong> {{plot}}</p>
+        <p><strong>Cast:</strong> 
+          {{#each cast}}
+            {{this.name}}
+          {{/each}}
+        </p>
+      </li>
+    {{/each}}
+  </ul>
+{{else}}
+  <p>No movies found.</p>
+{{/if}}
+
+
+
